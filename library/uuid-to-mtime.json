@@ -1,9 +1,4 @@
 {
-  "d1eb8476-bc22-4b7e-9577-4b589ce9c3aa": {
-    "asset": 1697553075329,
-    "meta": 1697554615947,
-    "relativePath": "Scripts/Framework"
-  },
   "f452a415-a186-4d9b-87d7-7eafc610fd83": {
     "asset": 1697430395441,
     "meta": 1697443992018,
@@ -14,35 +9,15 @@
     "meta": 1697443992019,
     "relativePath": "Scripts/Src"
   },
-  "f854ab34-d5e7-4c30-a84a-cad560859f3f": {
-    "asset": 1696847840984,
-    "meta": 1696918096707,
-    "relativePath": "Scripts/Framework/Audio"
-  },
-  "661c7168-896b-423c-a557-320694d6f638": {
-    "asset": 1696847816424,
-    "meta": 1696918096707,
-    "relativePath": "Scripts/Framework/Event"
-  },
   "d5aafaeb-dc6c-440a-9ade-1bdcb98b9edf": {
     "asset": 1697618808039,
     "meta": 1697618808043,
     "relativePath": "main.fire"
   },
-  "eeb58494-69f3-4713-bffa-8ae9ecea6b18": {
-    "asset": 1697013486467,
-    "meta": 1697443992020,
-    "relativePath": "Scripts/Framework/Tools"
-  },
   "0a93f7c1-7359-40a1-b663-872f8f028188": {
     "asset": 1697533014507,
     "meta": 1697554615946,
     "relativePath": "resources"
-  },
-  "dae09e7f-a625-4c7d-b67c-62e2417f6288": {
-    "asset": 1697430378319,
-    "meta": 1697441621357,
-    "relativePath": "resources/Prefab"
   },
   "93afe61f-f621-4743-ad78-73a695f84386": {
     "asset": 1697102943006,
@@ -53,11 +28,6 @@
     "asset": 1697444405490,
     "meta": 1697770521508,
     "relativePath": "Common/Tools/CCTools.ts"
-  },
-  "f2fd4e2b-44c4-4e78-9e55-f299e6607eab": {
-    "asset": 1697444604562,
-    "meta": 1697444583037,
-    "relativePath": "Scripts/Framework/Bundle"
   },
   "3d5affef-48fa-4ccf-818d-51f90db733d3": {
     "asset": 1697453835711,
@@ -84,16 +54,6 @@
     "meta": 1697770521454,
     "relativePath": "Common/Bundle/BundleManager.ts"
   },
-  "80a87cc1-a437-4277-b22c-0cdc3d0b327b": {
-    "asset": 1697529722789,
-    "meta": 1697554615948,
-    "relativePath": "Scripts/Framework/Pool"
-  },
-  "b5c7e3cf-2e44-4105-b2c7-b9cf3a09fee0": {
-    "asset": 1697527224646,
-    "meta": 1697554615948,
-    "relativePath": "Scripts/Framework/UI"
-  },
   "a5d995df-7603-4944-bbb7-e8431b32a27f": {
     "asset": 1697527696871,
     "meta": 1697770521518,
@@ -103,11 +63,6 @@
     "asset": 1697528104319,
     "meta": 1697770521512,
     "relativePath": "Common/UI/UIManager.ts"
-  },
-  "4e8da5da-cc8d-4e9c-9e76-7c365e862106": {
-    "asset": 1697531964847,
-    "meta": 1697532020651,
-    "relativePath": "Scripts/Framework/Game.ts"
   },
   "c21704e0-ed1a-49f9-9290-8ec97172535d": {
     "asset": 1697533077307,
@@ -678,56 +633,6 @@
     "asset": 1697527224646,
     "meta": 1697770521422,
     "relativePath": "Common/UI"
-  },
-  "2cfaff9f-ee87-4c9a-96c6-0c1cd7c28b7c": {
-    "asset": 1697616355990,
-    "meta": 1697770521526,
-    "relativePath": "Scripts/Framework/Audio/AudioManager.ts"
-  },
-  "c659cbd0-1e37-4728-9eff-1633eb801ec0": {
-    "asset": 1697454453534,
-    "meta": 1697770521530,
-    "relativePath": "Scripts/Framework/Audio/AudioRoot.ts"
-  },
-  "c6226306-9aad-4414-9519-b2e396c6bf21": {
-    "asset": 1697509326582,
-    "meta": 1697770521540,
-    "relativePath": "Scripts/Framework/Bundle/BundleManager.ts"
-  },
-  "beea0f26-83be-4ee6-a831-6e3f303c9532": {
-    "asset": 1697509138378,
-    "meta": 1697770521556,
-    "relativePath": "Scripts/Framework/Event/EventManager.ts"
-  },
-  "90b7a527-7dd1-4d32-bea9-9037c1612bdc": {
-    "asset": 1697613908029,
-    "meta": 1697770521560,
-    "relativePath": "Scripts/Framework/Pool/IResultAble.ts"
-  },
-  "6865f92d-9df7-4c71-b245-9708be19d8ad": {
-    "asset": 1697614889963,
-    "meta": 1697770521571,
-    "relativePath": "Scripts/Framework/Pool/ObjectPool.ts"
-  },
-  "6a612896-40ec-4820-9bc5-c09a5b24cf7e": {
-    "asset": 1697609293074,
-    "meta": 1697770521579,
-    "relativePath": "Scripts/Framework/Pool/SubPool.ts"
-  },
-  "7a8faf46-c3eb-4941-8f27-ed6c86c816c4": {
-    "asset": 1697444405490,
-    "meta": 1697770521583,
-    "relativePath": "Scripts/Framework/Tools/CCTools.ts"
-  },
-  "bce470cc-065a-42e3-9871-2ac30981f5c1": {
-    "asset": 1697528104319,
-    "meta": 1697770521587,
-    "relativePath": "Scripts/Framework/UI/UIManager.ts"
-  },
-  "62c0a518-fbb0-4779-a90a-0869388624b9": {
-    "asset": 1697527696871,
-    "meta": 1697770521592,
-    "relativePath": "Scripts/Framework/UI/UIView.ts"
   },
   "4eeb925f-8ed9-4097-b0e7-3e5ac87153aa": {
     "asset": 1697770151811,

@@ -21,17 +21,6 @@ require('./assets/Common/Pool/SubPool');
 require('./assets/Common/Tools/CCTools');
 require('./assets/Common/UI/UIManager');
 require('./assets/Common/UI/UIView');
-require('./assets/Scripts/Framework/Audio/AudioManager');
-require('./assets/Scripts/Framework/Audio/AudioRoot');
-require('./assets/Scripts/Framework/Bundle/BundleManager');
-require('./assets/Scripts/Framework/Event/EventManager');
-require('./assets/Scripts/Framework/Game');
-require('./assets/Scripts/Framework/Pool/IResultAble');
-require('./assets/Scripts/Framework/Pool/ObjectPool');
-require('./assets/Scripts/Framework/Pool/SubPool');
-require('./assets/Scripts/Framework/Tools/CCTools');
-require('./assets/Scripts/Framework/UI/UIManager');
-require('./assets/Scripts/Framework/UI/UIView');
 require('./assets/Scripts/Src/GameConst');
 
                     }
