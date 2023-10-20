@@ -10,7 +10,7 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}"use strict";
-cc._RF.push(module, '089d3tcVZlNOayZqjJHxm/X', 'IResultAble');
+cc._RF.push(module, '90b7aUnfdFNMr6pkDfBYSvc', 'IResultAble');
 // Scripts/Framework/Pool/IResultAble.ts
 
 "use strict";

@@ -10,7 +10,7 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}"use strict";
-cc._RF.push(module, 'ac564/AKwJOR5oBIwU5DcEh', 'CCTools');
+cc._RF.push(module, '7a8fa9Gw+tJQY8n7WyGyBbE', 'CCTools');
 // Scripts/Framework/Tools/CCTools.ts
 
 "use strict";

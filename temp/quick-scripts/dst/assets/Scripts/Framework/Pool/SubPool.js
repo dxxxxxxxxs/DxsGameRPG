@@ -10,7 +10,7 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}"use strict";
-cc._RF.push(module, 'd5755gz6m5LQrVRIXDW/yhM', 'SubPool');
+cc._RF.push(module, '6a612iWQOxIIJvFwJpbJM9+', 'SubPool');
 // Scripts/Framework/Pool/SubPool.ts
 
 "use strict";

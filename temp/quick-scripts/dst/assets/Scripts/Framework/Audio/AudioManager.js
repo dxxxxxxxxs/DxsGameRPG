@@ -10,7 +10,7 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}"use strict";
-cc._RF.push(module, 'a38c25i6GRIl7wXIvrjvczq', 'AudioManager');
+cc._RF.push(module, '2cfaf+f7odMmpbGDBzXwot8', 'AudioManager');
 // Scripts/Framework/Audio/AudioManager.ts
 
 "use strict";

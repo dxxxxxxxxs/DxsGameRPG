@@ -10,7 +10,7 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}"use strict";
-cc._RF.push(module, 'a5d99XfdgNJRLu36EMbMqJ/', 'UIView');
+cc._RF.push(module, '62c0aUY+7BHeakKCGk4hiS5', 'UIView');
 // Scripts/Framework/UI/UIView.ts
 
 "use strict";

@@ -10,7 +10,7 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}"use strict";
-cc._RF.push(module, 'aec3eRSdSBEZbZM57XuSQn+', 'UIManager');
+cc._RF.push(module, 'bce47DMBlpC45hxKsMJgfXB', 'UIManager');
 // Scripts/Framework/UI/UIManager.ts
 
 "use strict";

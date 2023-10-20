@@ -10,7 +10,7 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}"use strict";
-cc._RF.push(module, '8bfb2q7/D5NuKkrWySNZWGY', 'ObjectPool');
+cc._RF.push(module, '6865fktnfdMcbJFlwi+Gdit', 'ObjectPool');
 // Scripts/Framework/Pool/ObjectPool.ts
 
 "use strict";

@@ -10,6 +10,17 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}
+require('./assets/Common/Audio/AudioManager');
+require('./assets/Common/Audio/AudioRoot');
+require('./assets/Common/Bundle/BundleManager');
+require('./assets/Common/Event/EventManager');
+require('./assets/Common/Game');
+require('./assets/Common/Pool/IResultAble');
+require('./assets/Common/Pool/ObjectPool');
+require('./assets/Common/Pool/SubPool');
+require('./assets/Common/Tools/CCTools');
+require('./assets/Common/UI/UIManager');
+require('./assets/Common/UI/UIView');
 require('./assets/Scripts/Framework/Audio/AudioManager');
 require('./assets/Scripts/Framework/Audio/AudioRoot');
 require('./assets/Scripts/Framework/Bundle/BundleManager');
@@ -21,18 +32,7 @@ require('./assets/Scripts/Framework/Pool/SubPool');
 require('./assets/Scripts/Framework/Tools/CCTools');
 require('./assets/Scripts/Framework/UI/UIManager');
 require('./assets/Scripts/Framework/UI/UIView');
-require('./assets/Scripts/Src/Game/Enemy');
-require('./assets/Scripts/Src/Game/Share');
-require('./assets/Scripts/Src/Game/UIGame');
 require('./assets/Scripts/Src/GameConst');
-require('./assets/Scripts/Src/Model/GameModel');
-require('./assets/Scripts/Src/Model/RWInfo');
-require('./assets/Scripts/Src/UI/FeedbackPanel');
-require('./assets/Scripts/Src/UI/GameOverPanel');
-require('./assets/Scripts/Src/UI/GameQianDaoPanel');
-require('./assets/Scripts/Src/UI/GameRWItem');
-require('./assets/Scripts/Src/UI/GameRWPanel');
-require('./assets/Scripts/Src/UI/UI');
 
                     }
                     if (nodeEnv) {

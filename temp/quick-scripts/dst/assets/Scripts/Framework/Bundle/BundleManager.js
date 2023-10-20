@@ -10,7 +10,7 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}"use strict";
-cc._RF.push(module, 'bb52auMM69Du59eQPvKj0pn', 'BundleManager');
+cc._RF.push(module, 'c6226MGmq1EFJUZsuOWxr8h', 'BundleManager');
 // Scripts/Framework/Bundle/BundleManager.ts
 
 "use strict";

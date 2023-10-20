@@ -10,7 +10,7 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}"use strict";
-cc._RF.push(module, 'ba65f5gPDhPD7aB64BsmlaE', 'AudioRoot');
+cc._RF.push(module, 'c659cvQHjdHKJ7/FjPrgB7A', 'AudioRoot');
 // Scripts/Framework/Audio/AudioRoot.ts
 
 "use strict";

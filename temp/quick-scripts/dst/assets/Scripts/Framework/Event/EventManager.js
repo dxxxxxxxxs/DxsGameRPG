@@ -10,7 +10,7 @@
                     };
                     function __define (exports, require, module) {
                         if (!nodeEnv) {__quick_compile_project__.registerModule(__filename, module);}"use strict";
-cc._RF.push(module, '24aceh10CtOP7EwTclMxI41', 'EventManager');
+cc._RF.push(module, 'beea08mg75O5qgxbj8wPJUy', 'EventManager');
 // Scripts/Framework/Event/EventManager.ts
 
 "use strict";
