@@ -34,10 +34,13 @@ var SubPool = /** @class */ (function () {
         //this.myPrefab = await BundleManager.load<cc.Prefab>(this.poolName,"ObjectPool");
     };
     SubPool.prototype.Spawn = function () {
+        var _this = this;
         var go = null;
         this.nodeArray.forEach(function (node) {
             if (!node.active) {
                 go = node;
+                go.setParent(_this.myParent);
+                console.log(_this.myParent.name);
             }
         });
         if (go == null) {

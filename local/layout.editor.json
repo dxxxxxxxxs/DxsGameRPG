@@ -33,7 +33,7 @@
                 "children": [
                   {
                     "width": 654,
-                    "height": 440.4375,
+                    "height": 439.671875,
                     "type": "panel",
                     "active": 0,
                     "children": [
@@ -42,7 +42,7 @@
                   },
                   {
                     "width": 654,
-                    "height": 267.0625,
+                    "height": 267.8125,
                     "type": "panel",
                     "active": 0,
                     "children": [
@@ -91,10 +91,10 @@
   },
   "panels": {
     "sprite-editor": {
-      "x": 469,
-      "y": 133,
-      "width": 500,
-      "height": 528
+      "x": 0,
+      "y": 25,
+      "width": 1440,
+      "height": 800
     },
     "package-asset.export": {
       "x": 520,

@@ -92,6 +92,10 @@ var ObjectPool = /** @class */ (function () {
                                     _a.sent();
                                     _a.label = 2;
                                 case 2:
+                                    // else {
+                                    //     setTimeout(() => {
+                                    //     }, 0.01);
+                                    // }
                                     pool = this.pools.get(name);
                                     resovlve(pool.Spawn());
                                     return [2 /*return*/];

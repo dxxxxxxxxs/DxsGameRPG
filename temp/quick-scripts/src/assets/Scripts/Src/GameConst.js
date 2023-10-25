@@ -20,11 +20,17 @@ var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var GameConst = /** @class */ (function () {
     function GameConst() {
     }
-    GameConst.GameStart = "GameStart";
+    GameConst.UI_GameStart = "UI_GameStart";
+    GameConst.GAMESTART = "GAMESTART";
     GameConst.KillOneCount = "KillOneCount";
     GameConst.UI_GameOver = "UI_GameOver";
+    GameConst.GAMEOVER = "GAMEOVER";
     GameConst.UI_UpdateMusic = "UI_UpdateMusic";
     GameConst.UI_FinishRW = "UI_FinishRW";
+    GameConst.UI_PlayerUp = "UI_PlayerUp";
+    GameConst.UI_BackStart = "UI_BackStart";
+    GameConst.GetCoin = "GetCoin";
+    GameConst.UI_GetCoin = "UI_GetCoin";
     GameConst = __decorate([
         ccclass
     ], GameConst);

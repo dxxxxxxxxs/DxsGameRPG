@@ -29,12 +29,62 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UIView = exports.UIShowTypes = void 0;
+var UIManager_1 = require("./UIManager");
+var UINode_1 = require("./UINode");
+/**
+ * UIView界面基础类
+ *
+ * 1. 快速关闭与屏蔽点击的选项配置
+ * 2. 界面缓存设置（开启后界面关闭不会被释放，以便下次快速打开）
+ * 3. 界面显示类型配置
+ *
+ * 4. 加载资源接口（随界面释放自动释放），this.loadRes(xxx)
+ * 5. 由UIManager释放
+ *
+ * 5. 界面初始化回调（只调用一次）
+ * 6. 界面打开回调（每次打开回调）
+ * 7. 界面打开动画播放结束回调（动画播放完回调）
+ * 8. 界面关闭回调
+ * 9. 界面置顶回调
+ *
+ */
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+/** 界面展示类型 */
+var UIShowTypes;
+(function (UIShowTypes) {
+    UIShowTypes[UIShowTypes["UIFullScreen"] = 0] = "UIFullScreen";
+    UIShowTypes[UIShowTypes["UIAddition"] = 1] = "UIAddition";
+    UIShowTypes[UIShowTypes["UISingle"] = 2] = "UISingle";
+})(UIShowTypes = exports.UIShowTypes || (exports.UIShowTypes = {}));
+;
 var UIView = /** @class */ (function (_super) {
     __extends(UIView, _super);
     function UIView() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /** 快速关闭 */
+        _this.quickClose = false;
+        /** 屏蔽点击选项 在UIConf设置屏蔽点击*/
+        // @property
+        // preventTouch: boolean = true;
+        /** 缓存选项 */
+        _this.cache = false;
+        /** 界面显示类型 */
+        _this.showType = UIShowTypes.UISingle;
+        /** 界面id */
+        _this.uiId = 0;
+        return _this;
     }
+    Object.defineProperty(UIView.prototype, "uiNode", {
+        get: function () {
+            if (this._uiNode == null) {
+                this._uiNode = new UINode_1.UINode(this.node);
+            }
+            return this._uiNode;
+        },
+        enumerable: false,
+        configurable: true
+    });
     /********************** UI的回调 ***********************/
     /**
      * 当界面被创建时回调，生命周期内只调用
@@ -80,13 +130,24 @@ var UIView = /** @class */ (function (_super) {
         }
     };
     UIView.prototype.onBtn_close = function () {
-        //uiManager.close(this);
+        UIManager_1.uiManager.close(this);
     };
+    /**  静态变量，用于区分相同界面的不同实例 */
+    UIView.uiIndex = 0;
+    __decorate([
+        property
+    ], UIView.prototype, "quickClose", void 0);
+    __decorate([
+        property
+    ], UIView.prototype, "cache", void 0);
+    __decorate([
+        property({ type: cc.Enum(UIShowTypes) })
+    ], UIView.prototype, "showType", void 0);
     UIView = __decorate([
         ccclass
     ], UIView);
     return UIView;
 }(cc.Component));
-exports.default = UIView;
+exports.UIView = UIView;
 
 cc._RF.pop();

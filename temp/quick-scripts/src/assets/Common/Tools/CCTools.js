@@ -36,10 +36,23 @@ var CCTools = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     CCTools.isValidEmail = function (email) {
-        // 邮箱地址的正则表达式
+        // 邮箱地址的正则表达式 
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         // 使用正则表达式验证输入字符串
         return emailRegex.test(email);
+    };
+    /**
+     * 添加一个节点
+     * @param parent 父节点
+     * @param name 节点名称
+     * @param size 节点大小
+     */
+    CCTools.addNode = function (parent, name, size) {
+        if (size === void 0) { size = cc.view.getVisibleSize(); }
+        var node = new cc.Node(name);
+        node.setContentSize(size);
+        parent.addChild(node);
+        return node;
     };
     CCTools = __decorate([
         ccclass
