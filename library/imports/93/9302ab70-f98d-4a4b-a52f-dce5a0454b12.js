@@ -67,6 +67,11 @@ var player = /** @class */ (function (_super) {
                 return;
             }
             this.node.x += GameModel_1.default.moveSpeed * dt;
+            GameModel_1.default.distance += GameModel_1.default.moveSpeed * dt;
+            if (GameModel_1.default.distance >= 1200) {
+                Game_1.default.Event.dispatch(GameConst_1.default.UI_CreateMap);
+                GameModel_1.default.distance = 0;
+            }
         }
     };
     //跳跃

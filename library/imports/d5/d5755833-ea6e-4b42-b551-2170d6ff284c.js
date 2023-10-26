@@ -40,7 +40,6 @@ var SubPool = /** @class */ (function () {
             if (!node.active) {
                 go = node;
                 go.setParent(_this.myParent);
-                console.log(_this.myParent.name);
             }
         });
         if (go == null) {

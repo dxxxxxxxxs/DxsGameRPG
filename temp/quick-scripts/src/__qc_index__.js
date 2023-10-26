@@ -13,6 +13,7 @@ require('./assets/Common/UI/UINode');
 require('./assets/Common/UI/UIView');
 require('./assets/Scripts/Game/Coin');
 require('./assets/Scripts/Game/GameManager');
+require('./assets/Scripts/Game/Map');
 require('./assets/Scripts/Game/player');
 require('./assets/Scripts/Model/GameModel');
 require('./assets/Scripts/Src/GameConst');

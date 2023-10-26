@@ -30,4 +30,6 @@ export default class GameConst {
     public static readonly GetCoin = "GetCoin";
 
     public static readonly UI_GetCoin = "UI_GetCoin";
+
+    public static readonly UI_CreateMap = "UI_CreateMap";
 }

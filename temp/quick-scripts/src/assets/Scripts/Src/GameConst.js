@@ -31,6 +31,7 @@ var GameConst = /** @class */ (function () {
     GameConst.UI_BackStart = "UI_BackStart";
     GameConst.GetCoin = "GetCoin";
     GameConst.UI_GetCoin = "UI_GetCoin";
+    GameConst.UI_CreateMap = "UI_CreateMap";
     GameConst = __decorate([
         ccclass
     ], GameConst);

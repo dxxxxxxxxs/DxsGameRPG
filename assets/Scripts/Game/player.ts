@@ -44,6 +44,11 @@ export default class player extends IResultAble {
                 return;
             }
             this.node.x += GameModel.moveSpeed * dt;
+            GameModel.distance += GameModel.moveSpeed * dt;
+            if (GameModel.distance >= 1200) {
+                Game.Event.dispatch(GameConst.UI_CreateMap);
+                GameModel.distance = 0;
+            }
         }
     }
     //跳跃

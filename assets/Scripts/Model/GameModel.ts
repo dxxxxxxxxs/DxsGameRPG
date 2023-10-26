@@ -20,6 +20,7 @@ export default class GameModel {
     /**当前游戏分数 */
     public static gameScore: number = 0;
 
+    public static distance: number = 0;
     /**当前游戏状态 */
     private static GameState: GameState = GameState.null;
     static get gameState() {

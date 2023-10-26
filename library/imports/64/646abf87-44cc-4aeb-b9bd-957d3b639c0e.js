@@ -83,12 +83,14 @@ var UIGame = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.camera = null;
         _this.score = null;
+        _this.preMap = null;
+        _this.cruMap = null;
         return _this;
     }
     UIGame.prototype.onEnable = function () {
         this.addEvent();
+        this.initMap();
         this.initPlayer();
-        this.initCoin();
     };
     UIGame.prototype.initPlayer = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -111,7 +113,52 @@ var UIGame = /** @class */ (function (_super) {
             });
         });
     };
-    UIGame.prototype.initCoin = function () {
+    UIGame.prototype.initMap = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var temp, _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        temp = Math.floor(Math.random() * 2 + 1);
+                        _a = this;
+                        return [4 /*yield*/, Game_1.default.ObjectPool.Spawn("map" + temp, this.node)];
+                    case 1:
+                        _a.preMap = _c.sent();
+                        _b = this;
+                        return [4 /*yield*/, Game_1.default.ObjectPool.Spawn("map" + temp, this.node)];
+                    case 2:
+                        _b.cruMap = _c.sent();
+                        this.preMap.setPosition(0, -GameModel_1.default.gameHeigth / 2);
+                        this.cruMap.setPosition(this.preMap.width + 200, -GameModel_1.default.gameHeigth / 2);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UIGame.prototype.createOneMap = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var temp, nextMap, oldMap;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        temp = Math.floor(Math.random() * 2 + 1);
+                        return [4 /*yield*/, Game_1.default.ObjectPool.Spawn("map" + temp, this.node)];
+                    case 1:
+                        nextMap = _a.sent();
+                        nextMap.setPosition(this.cruMap.x + this.preMap.width + 200, -GameModel_1.default.gameHeigth / 2);
+                        return [4 /*yield*/, this.initCoin(nextMap.x)];
+                    case 2:
+                        _a.sent();
+                        oldMap = this.preMap;
+                        this.preMap = this.cruMap;
+                        this.cruMap = nextMap;
+                        Game_1.default.ObjectPool.UnSpawn(oldMap);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UIGame.prototype.initCoin = function (x) {
         return __awaiter(this, void 0, void 0, function () {
             var i, coin, error_2;
             return __generator(this, function (_a) {
@@ -121,11 +168,11 @@ var UIGame = /** @class */ (function (_super) {
                         i = 0;
                         _a.label = 1;
                     case 1:
-                        if (!(i < 100)) return [3 /*break*/, 4];
+                        if (!(i < 5)) return [3 /*break*/, 4];
                         return [4 /*yield*/, Game_1.default.ObjectPool.Spawn("Coin", this.node)];
                     case 2:
                         coin = _a.sent();
-                        coin.setPosition(i * 100, i * 5);
+                        coin.setPosition(x + i * (i > 2 ? -100 : 100), (Math.random() > 0.5 ? 10 : 40));
                         _a.label = 3;
                     case 3:
                         i++;
@@ -152,11 +199,13 @@ var UIGame = /** @class */ (function (_super) {
     UIGame.prototype.addEvent = function () {
         Game_1.default.Event.addEventListener(GameConst_1.default.UI_GameOver, this.gameOver, this);
         Game_1.default.Event.addEventListener(GameConst_1.default.UI_GetCoin, this.UIGetCoin, this);
+        Game_1.default.Event.addEventListener(GameConst_1.default.UI_CreateMap, this.createOneMap, this);
         //Game.Event.addEventListener(GameConst.UI_GameStart, this.gameStart, this);
     };
     UIGame.prototype.removeEvent = function () {
         Game_1.default.Event.removeEventListener(GameConst_1.default.UI_GameOver, this.gameOver, this);
         Game_1.default.Event.removeEventListener(GameConst_1.default.UI_GetCoin, this.UIGetCoin, this);
+        Game_1.default.Event.removeEventListener(GameConst_1.default.UI_CreateMap, this.createOneMap, this);
         //Game.Event.removeEventListener(GameConst.UI_GameStart, this.gameStart, this);
     };
     UIGame.prototype.UIGetCoin = function () {

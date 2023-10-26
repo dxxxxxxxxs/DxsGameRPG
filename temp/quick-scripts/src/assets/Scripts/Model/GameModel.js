@@ -51,6 +51,7 @@ var GameModel = /** @class */ (function () {
     GameModel.moveSpeed = 200;
     /**当前游戏分数 */
     GameModel.gameScore = 0;
+    GameModel.distance = 0;
     /**当前游戏状态 */
     GameModel.GameState = UIGame_1.GameState.null;
     GameModel = __decorate([

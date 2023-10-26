@@ -24,11 +24,12 @@ export default class UIGame extends cc.Component {
     camera: cc.Camera = null;
     @property(cc.Label)
     score: cc.Label = null;
+    preMap: cc.Node = null;
+    cruMap: cc.Node = null;
     protected onEnable(): void {
         this.addEvent();
+        this.initMap();
         this.initPlayer();
-        this.initCoin();
-
     }
     async initPlayer() {
         try {
@@ -38,11 +39,28 @@ export default class UIGame extends cc.Component {
             console.log(error);
         }
     }
-    async initCoin() {
+    async initMap() {
+        let temp = Math.floor(Math.random() * 2 + 1);
+        this.preMap = await Game.ObjectPool.Spawn("map" + temp, this.node);
+        this.cruMap = await Game.ObjectPool.Spawn("map" + temp, this.node);
+        this.preMap.setPosition(0, -GameModel.gameHeigth / 2);
+        this.cruMap.setPosition(this.preMap.width + 200, -GameModel.gameHeigth / 2);
+    }
+    async createOneMap() {
+        let temp = Math.floor(Math.random() * 2 + 1);
+        let nextMap = await Game.ObjectPool.Spawn("map" + temp, this.node);
+        nextMap.setPosition(this.cruMap.x + this.preMap.width + 200, -GameModel.gameHeigth / 2);
+        await this.initCoin(nextMap.x);
+        let oldMap = this.preMap;
+        this.preMap = this.cruMap;
+        this.cruMap = nextMap;
+        Game.ObjectPool.UnSpawn(oldMap);
+    }
+    async initCoin(x: number) {
         try {
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 5; i++) {
                 let coin = await Game.ObjectPool.Spawn("Coin", this.node);
-                coin.setPosition(i * 100, i * 5)
+                coin.setPosition(x + i * (i > 2 ? -100 : 100), (Math.random() > 0.5 ? 10 : 40));
             }
         } catch (error) {
             console.log(error);
@@ -60,11 +78,13 @@ export default class UIGame extends cc.Component {
     addEvent() {
         Game.Event.addEventListener(GameConst.UI_GameOver, this.gameOver, this);
         Game.Event.addEventListener(GameConst.UI_GetCoin, this.UIGetCoin, this);
+        Game.Event.addEventListener(GameConst.UI_CreateMap, this.createOneMap, this);
         //Game.Event.addEventListener(GameConst.UI_GameStart, this.gameStart, this);
     }
     removeEvent() {
         Game.Event.removeEventListener(GameConst.UI_GameOver, this.gameOver, this);
         Game.Event.removeEventListener(GameConst.UI_GetCoin, this.UIGetCoin, this);
+        Game.Event.removeEventListener(GameConst.UI_CreateMap, this.createOneMap, this);
         //Game.Event.removeEventListener(GameConst.UI_GameStart, this.gameStart, this);
     }
     UIGetCoin() {
