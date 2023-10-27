@@ -24,8 +24,9 @@ export default class UIGame extends cc.Component {
     camera: cc.Camera = null;
     @property(cc.Label)
     score: cc.Label = null;
-    preMap: cc.Node = null;
-    cruMap: cc.Node = null;
+
+    private preMap: cc.Node = null;
+    private cruMap: cc.Node = null;
     protected onEnable(): void {
         this.addEvent();
         this.initMap();

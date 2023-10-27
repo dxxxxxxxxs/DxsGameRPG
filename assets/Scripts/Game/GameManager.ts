@@ -90,6 +90,7 @@ export default class GameManager extends cc.Component {
         GameModel.gameScore = 0;
         GameModel.gameState = GameState.over;
         GameModel.distance = 0;
+        GameModel.moveSpeed = 200;
         Game.ObjectPool.UnSpawnAll();
         Game.ObjectPool.Clear();
         Game.Event.dispatch(GameConst.UI_GameOver);

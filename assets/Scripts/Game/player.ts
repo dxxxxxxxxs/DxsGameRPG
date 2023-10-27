@@ -48,6 +48,7 @@ export default class player extends IResultAble {
             if (GameModel.distance >= 1200) {
                 Game.Event.dispatch(GameConst.UI_CreateMap);
                 GameModel.distance = 0;
+                GameModel.moveSpeed += 20;
             }
         }
     }

@@ -112,6 +112,7 @@ var GameManager = /** @class */ (function (_super) {
         GameModel_1.default.gameScore = 0;
         GameModel_1.default.gameState = UIGame_1.GameState.over;
         GameModel_1.default.distance = 0;
+        GameModel_1.default.moveSpeed = 200;
         Game_1.default.ObjectPool.UnSpawnAll();
         Game_1.default.ObjectPool.Clear();
         Game_1.default.Event.dispatch(GameConst_1.default.UI_GameOver);

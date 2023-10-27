@@ -4,6 +4,7 @@ require('./assets/Common/Audio/AudioRoot');
 require('./assets/Common/Bundle/BundleManager');
 require('./assets/Common/Event/EventManager');
 require('./assets/Common/Game');
+require('./assets/Common/Http/HttpManager');
 require('./assets/Common/Pool/IResultAble');
 require('./assets/Common/Pool/ObjectPool');
 require('./assets/Common/Pool/SubPool');
