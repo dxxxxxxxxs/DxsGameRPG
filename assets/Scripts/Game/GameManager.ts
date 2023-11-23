@@ -17,7 +17,8 @@ const { ccclass, property } = cc._decorator;
 export default class GameManager extends cc.Component {
     protected onLoad(): void {
         cc.game.addPersistRootNode(this.node);
-        cc.director.getPhysicsManager().enabled = true;
+        let physicsManager = cc.director.getPhysicsManager();
+        physicsManager.enabled = true;
         cc.director.getCollisionManager().enabled = true;
         this.addEvent();
         this.initGameModel();

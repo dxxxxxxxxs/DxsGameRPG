@@ -16,7 +16,6 @@ export default class Coin extends IResultAble {
         let tween2 = cc.tween(this.node).to(0.5, { scaleX: 1 }, { easing: 'sineOut' });
         let tween3 = cc.tween(this.node).sequence(tween1, tween2);
         cc.tween(this.node).repeatForever(tween3).start();
-        console
     }
     public onSpawn() {
     }

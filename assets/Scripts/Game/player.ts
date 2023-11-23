@@ -50,25 +50,35 @@ export default class player extends IResultAble {
                 GameModel.distance = 0;
                 GameModel.moveSpeed += 20;
             }
+            let RigidBody = this.node.getComponent(cc.RigidBody);
+            if (RigidBody.linearVelocity.x != 0) {
+                RigidBody.linearVelocity = cc.v2(0, RigidBody.linearVelocity.y);
+            }
         }
     }
     //跳跃
     onPlayerUp() {
         if (this.canKeyDown == false) return;
         let rigidbody2 = this.node.getComponent(cc.RigidBody);
-        rigidbody2.applyForceToCenter(cc.v2(0, 100).mulSelf(700), true);
+        rigidbody2.applyForceToCenter(cc.v2(0, 10000).mulSelf(7), true);
         this.canKeyDown = false;
     }
     onBeginContact(contact: cc.PhysicsContact, selfCollider: cc.PhysicsCircleCollider, otherCollider: cc.PhysicsBoxCollider) {
         this.canKeyDown = true;
+        console.log("落地");
     }
     onEndContact(contact: cc.PhysicsContact, selfCollider: cc.PhysicsCircleCollider, otherCollider: cc.PhysicsBoxCollider) {
         this.canKeyDown = false;
+        console.log("离开地面");
     }
     onCollisionEnter(other, self) {
         if (other.tag == 9) {
             Game.ObjectPool.UnSpawn(other.node);
             Game.Event.dispatch(GameConst.GetCoin);
         }
+    }
+    playerDown() {
+        if (this.canKeyDown == false) return;
+
     }
 }
