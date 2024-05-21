@@ -1,7 +1,0 @@
-{
-  "__type__": "cc.TextAsset",
-  "_name": "README",
-  "_objFlags": 0,
-  "_native": "",
-  "text": "# Common\n一些公共的代码\n"
-}

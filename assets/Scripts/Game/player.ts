@@ -25,10 +25,8 @@ export default class player extends IResultAble {
         this.removeEvent();
     }
     public onSpawn() {
-        console.log("玩家已生成");
     }
     public unSpawn() {
-        console.log("玩家已死亡");
     }
     addEvent() {
         Game.Event.addEventListener(GameConst.UI_PlayerUp, this.onPlayerUp, this);
@@ -60,7 +58,7 @@ export default class player extends IResultAble {
     onPlayerUp() {
         if (this.canKeyDown == false) return;
         let rigidbody2 = this.node.getComponent(cc.RigidBody);
-        rigidbody2.applyForceToCenter(cc.v2(0, 10000).mulSelf(7), true);
+        rigidbody2.applyForceToCenter(cc.v2(0, 1000000).mulSelf(7), true);
         this.canKeyDown = false;
     }
     onBeginContact(contact: cc.PhysicsContact, selfCollider: cc.PhysicsCircleCollider, otherCollider: cc.PhysicsBoxCollider) {
