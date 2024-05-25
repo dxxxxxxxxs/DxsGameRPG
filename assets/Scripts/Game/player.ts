@@ -46,7 +46,7 @@ export default class player extends IResultAble {
             if (GameModel.distance >= 1200) {
                 Game.Event.dispatch(GameConst.UI_CreateMap);
                 GameModel.distance = 0;
-                GameModel.moveSpeed += 20;
+                GameModel.moveSpeed += 50;
             }
             let RigidBody = this.node.getComponent(cc.RigidBody);
             if (RigidBody.linearVelocity.x != 0) {
@@ -58,7 +58,7 @@ export default class player extends IResultAble {
     onPlayerUp() {
         if (this.canKeyDown == false) return;
         let rigidbody2 = this.node.getComponent(cc.RigidBody);
-        rigidbody2.applyForceToCenter(cc.v2(0, 1000000).mulSelf(7), true);
+        rigidbody2.applyForceToCenter(cc.v2(0, 20000).mulSelf(5), true);
         this.canKeyDown = false;
     }
     onBeginContact(contact: cc.PhysicsContact, selfCollider: cc.PhysicsCircleCollider, otherCollider: cc.PhysicsBoxCollider) {

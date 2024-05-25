@@ -23,6 +23,7 @@ export default class GameManager extends cc.Component {
         this.addEvent();
         this.initGameModel();
         this.initBundle();
+        Game.WX.onShow();
     }
 
     //初始化游戏数据

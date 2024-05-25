@@ -77,12 +77,14 @@ export default class UIGame extends cc.Component {
         }
     }
     addEvent() {
+        this.node.on(cc.Node.EventType.TOUCH_START, () => { Game.Event.dispatch(GameConst.UI_PlayerUp); }, this);
         Game.Event.addEventListener(GameConst.UI_GameOver, this.gameOver, this);
         Game.Event.addEventListener(GameConst.UI_GetCoin, this.UIGetCoin, this);
         Game.Event.addEventListener(GameConst.UI_CreateMap, this.createOneMap, this);
         //Game.Event.addEventListener(GameConst.UI_GameStart, this.gameStart, this);
     }
     removeEvent() {
+        this.node.off(cc.Node.EventType.TOUCH_START);
         Game.Event.removeEventListener(GameConst.UI_GameOver, this.gameOver, this);
         Game.Event.removeEventListener(GameConst.UI_GetCoin, this.UIGetCoin, this);
         Game.Event.removeEventListener(GameConst.UI_CreateMap, this.createOneMap, this);
