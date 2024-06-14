@@ -5,14 +5,15 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
 
-import Game from "../../Common/Game";
+import { Game } from "../../Common/Game";
+import { UIView } from "../../Common/UI/UIView";
 import GameConst from "../Src/GameConst";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class UIGameOver extends cc.Component {
-    protected onLoad(): void {
+export default class UIGameOver extends UIView {
+    public onOpen(): void {
     }
     onBtnAgainGame() {
         Game.Event.dispatch(GameConst.GAMESTART);

@@ -15,10 +15,6 @@ export default class GameModel {
     public static gameWidth: number = 0;
     /**屏幕可视化高度 */
     public static gameHeigth: number = 0;
-    /**玩家移动速度 */
-    public static moveSpeed: number = 200;
-    /**当前游戏分数 */
-    public static gameScore: number = 0;
 
     public static distance: number = 0;
     /**当前游戏状态 */
