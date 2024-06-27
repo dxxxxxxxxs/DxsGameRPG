@@ -35,6 +35,9 @@ export class Card extends IResultAble {
     /**当前方块覆盖的所有方块 */
     private coverCardArray: Set<Card>;
 
+    /**在飞行中 */
+    isFly: boolean = false;
+
     public onSpawn() {
 
     }
@@ -94,6 +97,7 @@ export class Card extends IResultAble {
     }
     /**点击方块 */
     cardDown() {
+        this.isFly = true;
         for (const item of this.coverCardArray) {
             item.removeAboveCard(this);
         }
@@ -107,7 +111,8 @@ export class Card extends IResultAble {
             CCTools.changeParentAndKeepPosition(this.node, newParent);
             Game.Event.dispatch(GameConst.UI_SortCard);
             cc.tween(this.node).to(0.3, { position: cc.v3(0, 0, 0) }, { easing: 'sineOut' }).call(() => {
-                Game.Event.dispatch(GameConst.UI_CardGoIn);
+                this.isFly = false;
+                Game.Event.dispatch(GameConst.UI_CardGoIn, this);
             }).start();
         }, 0.01);
     }

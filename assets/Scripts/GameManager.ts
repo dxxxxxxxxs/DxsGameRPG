@@ -86,4 +86,5 @@ export class GameManager extends cc.Component {
             cc.game.pause();
         }
     }
+
 }

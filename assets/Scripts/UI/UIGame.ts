@@ -12,7 +12,7 @@ import { uiManager } from "../../Common/UI/UIManager";
 import { UIView } from "../../Common/UI/UIView";
 import { Card } from "../Game/Card";
 import { UIID } from "../GameConfig";
-import GameModel from "../Model/GameModel";
+import GameModel, { PropType } from "../Model/GameModel";
 import GameConst from "../Src/GameConst";
 
 const { ccclass, property } = cc._decorator;
@@ -43,6 +43,12 @@ export default class UIGame extends UIView {
     posNodeArray: cc.Node[] = [];
     @property(cc.Node)
     pickDerk: cc.Node = null;
+    @property(cc.Node)
+    btn_revoke: cc.Node = null;
+    @property(cc.Node)
+    btn_tips: cc.Node = null;
+    @property(cc.Node)
+    btn_shuffle: cc.Node = null;
     @property(cc.SpriteFrame)
     iconFrames: cc.SpriteFrame[] = [];
 
@@ -50,7 +56,12 @@ export default class UIGame extends UIView {
     private cards: Set<Card>;
     private cardArray: number[] = [0, 0, 0, 0, 0];
     public init(...args: any[]): void {
+        this.initProp();
         CCTools.fixedClick(this.btn_Set, () => { uiManager.open(UIID.UISet); }, this);
+        CCTools.fixedClick(this.btn_revoke, this.btnRevokeDown, this);
+        CCTools.fixedClick(this.btn_tips, this.btnTipsDown, this);
+        CCTools.fixedClick(this.btn_shuffle, this.btnShuffleDown, this);
+
     }
 
     onOpen(): void {
@@ -64,6 +75,14 @@ export default class UIGame extends UIView {
         Game.Event.addEventListener(GameConst.UI_AgainGame, this.againGame, this);
         Game.Event.addEventListener(GameConst.UI_CardGoIn, this.CardGoIn, this);
         Game.Event.addEventListener(GameConst.UI_SortCard, this.sortCard, this);
+    }
+
+    /**初始化道具数量 */
+    initProp() {
+        GameModel.propMap = new Map<PropType, number>();
+        GameModel.propMap.set(PropType.revoke, 1);
+        GameModel.propMap.set(PropType.tips, 1);
+        GameModel.propMap.set(PropType.shuffle, 1);
     }
 
     /**生成牌堆 */
@@ -147,8 +166,8 @@ export default class UIGame extends UIView {
     }
 
     /**方块进入下方框中 */
-    CardGoIn() {
-        this.clearCard();
+    CardGoIn(event: string, card: Card) {
+        this.clearCard(card);
         this.scheduleOnce(() => {
             this.SortGridPos();
         }, 0.05);
@@ -177,30 +196,24 @@ export default class UIGame extends UIView {
     }
 
     /**消除 */
-    clearCard() {
+    clearCard(card: Card) {
         let sameCount = 0;
-        let id = -1;
-        let startIndex = -1;
+        let clearArray = [];
         for (let i = 0; i < GameModel.indexArray.length; i++) {
             if (GameModel.indexArray[i] == -1) break;
-            if (sameCount == 0) {
-                sameCount = 1;
-                id = GameModel.indexArray[i];
-                startIndex = i;
-            } else {
-                if (id === GameModel.indexArray[i]) {
-                    sameCount++;
-                } else {
-                    sameCount = 1;
-                    id = GameModel.indexArray[i];
-                    startIndex = i;
-                }
+            if (GameModel.indexArray[i] === card.cardType) {
+                sameCount++;
+                clearArray.push(GameModel.m_PosNodeArray[i].children[0]);
             }
-            if (sameCount >= 3) {
-                //消除
-                for (let j = startIndex; j < startIndex + 3; j++) {
+            if (sameCount >= 3 && clearArray.length >= 3) {
+                for (let j = 0; j < clearArray.length; j++) {
+                    if (clearArray[j].getComponent(Card).isFly) {
+                        return;
+                    }
+                }
+                for (let j = 0; j < clearArray.length; j++) {
                     GameModel.indexArray[j] = -1;
-                    Game.ObjectPool.UnSpawn(GameModel.m_PosNodeArray[j].children[0]);
+                    Game.ObjectPool.UnSpawn(clearArray[j]);
                 }
                 break;
             }
@@ -208,6 +221,36 @@ export default class UIGame extends UIView {
                 Game.Event.dispatch(GameConst.GAMEOVER);
             }
         }
+        // let sameCount = 0;
+        // let id = -1;
+        // let startIndex = -1;
+        // for (let i = 0; i < GameModel.indexArray.length; i++) {
+        //     if (GameModel.indexArray[i] == -1) break;
+        //     if (sameCount == 0) {
+        //         sameCount = 1;
+        //         id = GameModel.indexArray[i];
+        //         startIndex = i;
+        //     } else {
+        //         if (id === GameModel.indexArray[i]) {
+        //             sameCount++;
+        //         } else {
+        //             sameCount = 1;
+        //             id = GameModel.indexArray[i];
+        //             startIndex = i;
+        //         }
+        //     }
+        //     if (sameCount >= 3) {
+        //         //消除
+        //         for (let j = startIndex; j < startIndex + 3; j++) {
+        //             GameModel.indexArray[j] = -1;
+        //             Game.ObjectPool.UnSpawn(GameModel.m_PosNodeArray[j].children[0]);
+        //         }
+        //         break;
+        //     }
+        //     if (i >= GameModel.indexArray.length - 1) {
+        //         Game.Event.dispatch(GameConst.GAMEOVER);
+        //     }
+        // }
     }
 
     /**消除后填充框 */
@@ -218,6 +261,22 @@ export default class UIGame extends UIView {
             }
         }
         this.sortCard();
+    }
+
+
+    /**点击撤销道具 */
+    btnRevokeDown() {
+
+    }
+
+    /**点击提示道具 */
+    btnTipsDown() {
+
+    }
+
+    /**点击洗牌道具 */
+    btnShuffleDown() {
+
     }
 
     /**重新开始游戏 */
