@@ -13,23 +13,17 @@ export default class GameConst {
 
     public static readonly GAMESTART = "GAMESTART";
 
-    public static readonly KillOneCount = "KillOneCount";
-
     public static readonly UI_GameOver = "UI_GameOver";
 
     public static readonly GAMEOVER = "GAMEOVER";
 
     public static readonly UI_UpdateMusic = "UI_UpdateMusic";
 
-    public static readonly UI_FinishRW = "UI_FinishRW";
-
-    public static readonly UI_PlayerUp = "UI_PlayerUp";
-
     public static readonly UI_BackStart = "UI_BackStart";
 
-    public static readonly GetCoin = "GetCoin";
-
-    public static readonly UI_GetCoin = "UI_GetCoin";
-
-    public static readonly UI_CreateMap = "UI_CreateMap";
+    public static readonly UI_AgainGame = "UI_AgainGame";
+    /**方块进入框中 */
+    public static readonly UI_CardGoIn = "UI_CardGoIn";
+    /**方块排序 */
+    public static readonly UI_SortCard = "UI_SortCard";
 }

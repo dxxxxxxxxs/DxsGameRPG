@@ -63,6 +63,7 @@ export class GameManager extends cc.Component {
         GameModel.gameState = GameState.over;
         Game.ObjectPool.UnSpawnAll();
         Game.ObjectPool.Clear();
+        cc.Tween.stopAll();
         uiManager.open(UIID.UIGameOver);
     }
     /**

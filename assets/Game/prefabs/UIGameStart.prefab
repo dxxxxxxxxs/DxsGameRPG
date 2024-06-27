@@ -446,8 +446,10 @@
     "_fontSize": 60,
     "_lineHeight": 60,
     "_enableWrapText": false,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "336722a6-25cc-4999-9e19-edaf2c809916"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,

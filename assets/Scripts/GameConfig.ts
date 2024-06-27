@@ -14,12 +14,14 @@ export enum UIID {
     UIGame = 1,
     UIGameStart,
     UIGameOver,
+    UISet,
 }
 
 export const UICF: { [key: number]: UIConf } = {
     [UIID.UIGame]: { prefab: "prefabs/UIGame", bundle: "Game" },
     [UIID.UIGameStart]: { prefab: "prefabs/UIGameStart", bundle: "Game" },
     [UIID.UIGameOver]: { prefab: "prefabs/UIGameOver", bundle: "GameOver" },
+    [UIID.UISet]: { prefab: "prefabs/UISet", bundle: "Game" },
 }
 
 
