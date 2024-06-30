@@ -7,6 +7,7 @@
 
 import BundleManager from "../Common/Bundle/BundleManager";
 import { Game } from "../Common/Game";
+import CCTools from "../Common/Tools/CCTools";
 import { uiManager } from "../Common/UI/UIManager";
 import { UICF, UIID } from "./GameConfig";
 import GameModel from "./Model/GameModel";
@@ -19,22 +20,27 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export class GameManager extends cc.Component {
     protected onLoad(): void {
-        Game.initialize();
-        cc.game.addPersistRootNode(this.node);
-        this.addEvent();
-        this.initGameModel();
-        this.initBundle();
-        uiManager.open(UIID.UIGameStart);
+
+
+        let complete = async () => {
+            this.initadaptation();
+            Game.initialize();
+            cc.game.addPersistRootNode(this.node);
+            this.addEvent();
+            uiManager.open(UIID.UIGameStart);
+        }
+        complete();
     }
 
 
-    //初始化游戏数据
-    initGameModel() {
+    //初始化适配
+    initadaptation() {
         GameModel.gameWidth = cc.view.getVisibleSize().width;
         GameModel.gameHeigth = cc.view.getVisibleSize().height;
-    }
-    initBundle() {
-        BundleManager.loadBundle("ObjectPool");
+        const canvas = CCTools.findChild(cc.director.getScene(), "Canvas");
+        const canvasComp = canvas.getComponent(cc.Canvas);
+        canvasComp.designResolution = new cc.Size(GameModel.gameWidth, GameModel.gameHeigth);
+        cc.view.setDesignResolutionSize(GameModel.gameWidth, GameModel.gameHeigth, cc.ResolutionPolicy.EXACT_FIT);
     }
 
 

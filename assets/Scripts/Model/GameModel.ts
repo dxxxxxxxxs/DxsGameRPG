@@ -39,6 +39,10 @@ export default class GameModel {
     public static m_PosNodeArray: cc.Node[] = [];
     public static indexArray: number[] = [];
 
+    /**上一次点击的方块 */
+    public static preCard: Card = null;
+
+
     public static centerDeck =
         [
             [

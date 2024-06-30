@@ -26,4 +26,6 @@ export default class GameConst {
     public static readonly UI_CardGoIn = "UI_CardGoIn";
     /**方块排序 */
     public static readonly UI_SortCard = "UI_SortCard";
+    /**方块撤销 */
+    public static readonly UI_CardRevoke = "UI_CardRevoke";
 }

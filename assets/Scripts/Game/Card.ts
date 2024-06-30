@@ -35,8 +35,15 @@ export class Card extends IResultAble {
     /**当前方块覆盖的所有方块 */
     private coverCardArray: Set<Card>;
 
-    /**在飞行中 */
-    isFly: boolean = false;
+    /**在方块堆时的位置 */
+    private curPos: cc.Vec2 = null;
+
+    /**能点击 */
+    public isCanClick: boolean = true;
+
+    /**是否在飞行中 */
+    public isFly: boolean = false;
+
 
     public onSpawn() {
 
@@ -55,6 +62,7 @@ export class Card extends IResultAble {
         this.cardId = cardid;
         this.aboveCardArray = new Set<Card>();
         this.coverCardArray = new Set<Card>();
+        this.curPos = this.node.getPosition();
         CCTools.fixedClick(this.node, this.cardDown, this);
         CCTools.findChild(this.node, "icon").getComponent(cc.Sprite).spriteFrame = icon;
         this.mask = CCTools.findChild(this.node, "mask");
@@ -79,6 +87,7 @@ export class Card extends IResultAble {
     /**自己处理覆盖关系 */
     coverCard(state: boolean) {
         this.mask.active = state;
+        this.isCanClick = !state;
     }
 
     /**添加覆盖当前方块的方块 */
@@ -97,7 +106,9 @@ export class Card extends IResultAble {
     }
     /**点击方块 */
     cardDown() {
+        CCTools.controlClicks(this.node, false);
         this.isFly = true;
+        GameModel.preCard = this;
         for (const item of this.coverCardArray) {
             item.removeAboveCard(this);
         }
@@ -110,12 +121,37 @@ export class Card extends IResultAble {
         this.scheduleOnce(() => {
             CCTools.changeParentAndKeepPosition(this.node, newParent);
             Game.Event.dispatch(GameConst.UI_SortCard);
-            cc.tween(this.node).to(0.3, { position: cc.v3(0, 0, 0) }, { easing: 'sineOut' }).call(() => {
+            cc.tween(this.node).to(0.2, { position: cc.v3(0, 0, 0) }, { easing: 'sineOut' }).call(() => {
                 this.isFly = false;
+                this.isCanClick = false;
                 Game.Event.dispatch(GameConst.UI_CardGoIn, this);
             }).start();
         }, 0.01);
     }
+
+    /**撤销道具 */
+    revokeCard() {
+        this.isFly = true;
+        Game.Event.dispatch(GameConst.UI_SortCard);
+        cc.tween(this.node).to(0.2, { position: cc.v3(this.curPos) }, { easing: 'sineOut' }).call(() => {
+            this.isFly = false;
+            CCTools.controlClicks(this.node, true);
+            Game.Event.dispatch(GameConst.UI_CardRevoke, this);
+        }).start();
+    }
+
+    /**提示 */
+    cardTips() {
+        let tween1 = cc.tween(this.node).to(0.05, { color: cc.Color.RED });
+        let tween2 = cc.tween(this.node).to(0.05, { color: cc.Color.WHITE });
+        cc.tween(this.node).sequence(tween1, tween2).repeat(2).start();
+    }
+
+    /**洗牌 */
+    shuffle(icon: cc.SpriteFrame) {
+        CCTools.findChild(this.node, "icon").getComponent(cc.Sprite).spriteFrame = icon;
+    }
+
 }
 
 

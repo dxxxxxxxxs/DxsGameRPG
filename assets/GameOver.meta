@@ -6,7 +6,7 @@
   "bundleName": "",
   "priority": 1,
   "compressionType": {
-    "wechatgame": "default"
+    "wechatgame": "subpackage"
   },
   "optimizeHotUpdate": {
     "wechatgame": false
