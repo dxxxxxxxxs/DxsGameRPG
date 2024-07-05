@@ -29,9 +29,9 @@ export default class GameModel {
     /**列 */
     public static col: number = 7;
     /**层 */
-    public static layer: number = 5;
+    public static layer: number = 0;
     /**当前关卡方块总数 */
-    public static cardNumber: number = 105;
+    private static cardNumber: number = -1;
     /**道具数量 */
     public static propMap: Map<PropType, number> = null;
 
@@ -42,58 +42,37 @@ export default class GameModel {
     /**上一次点击的方块 */
     public static preCard: Card = null;
 
+    /**当前关卡 */
+    public static level: number = 0;
 
-    public static centerDeck =
-        [
-            [
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 1, 0, 0, 0],
-                [0, 2, 1, 2, 1, 2, 0],
-                [0, 1, 1, 1, 2, 2, 0],
-                [0, 1, 2, 2, 1, 2, 0],
-                [0, 1, 2, 1, 2, 1, 0],
-                [0, 0, 0, 0, 0, 0, 0]
-            ],
-            [
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 1, 0, 0, 0],
-                [0, 2, 1, 2, 1, 2, 0],
-                [0, 1, 1, 1, 2, 2, 0],
-                [0, 1, 2, 2, 1, 2, 0],
-                [0, 1, 2, 1, 2, 1, 0],
-                [0, 0, 0, 0, 0, 0, 0]
-            ],
-            [
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 1, 0, 0, 0],
-                [0, 2, 1, 2, 1, 2, 0],
-                [0, 1, 1, 1, 2, 2, 0],
-                [0, 1, 2, 2, 1, 2, 0],
-                [0, 1, 2, 1, 2, 1, 0],
-                [0, 0, 0, 0, 0, 0, 0]
-            ],
-            [
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 1, 0, 0, 0],
-                [0, 2, 1, 2, 1, 2, 0],
-                [0, 1, 1, 1, 2, 2, 0],
-                [0, 1, 2, 2, 1, 2, 0],
-                [0, 1, 2, 1, 2, 1, 0],
-                [0, 0, 0, 0, 0, 0, 0]
-            ],
-            [
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 1, 0, 0, 0],
-                [0, 2, 1, 2, 1, 2, 0],
-                [0, 1, 1, 1, 2, 2, 0],
-                [0, 1, 2, 2, 1, 2, 0],
-                [0, 1, 2, 1, 2, 1, 0],
-                [0, 0, 0, 0, 0, 0, 0]
-            ]
-        ]
+    /**音量 */
+    public static musicVolume: number = -1;
+    public static soundVolume: number = -1;
+
+    /**关卡json文件 */
+    public static levelJson: cc.JsonAsset = null;
+
+    public static centerDeck = [];
 
     /**当前游戏状态 */
     private static GameState: GameState = GameState.null;
+
+    static get CardNumber() {
+        return this.cardNumber;
+    }
+
+    static set CardNumber(value: number) {
+        this.cardNumber = value;
+        console.log("方块数" + this.cardNumber);
+        if (this.cardNumber == 0) {
+            //过关了
+            this.level++;
+            Game.Storage.setWXItem("level", this.level);
+            Game.Event.dispatch(GameConst.UI_PassLevel);
+            console.log("过关");
+        }
+    }
+
     static get gameState() {
         return this.GameState;
     }

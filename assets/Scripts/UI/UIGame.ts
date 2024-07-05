@@ -11,7 +11,7 @@ import CCTools from "../../Common/Tools/CCTools";
 import { uiManager } from "../../Common/UI/UIManager";
 import { UIView } from "../../Common/UI/UIView";
 import { Card } from "../Game/Card";
-import { UIID } from "../GameConfig";
+import { GameConfig, UIID, levelAllData, levelData } from "../GameConfig";
 import GameModel, { PropType } from "../Model/GameModel";
 import GameConst from "../Src/GameConst";
 
@@ -55,7 +55,7 @@ export default class UIGame extends UIView {
     /**当前关卡生成的所有方块 */
     private cards: Set<Card>;
     private cardArray: number[] = [0, 0, 0, 0, 0];
-
+    private levelData: levelAllData = null;
 
     public init(...args: any[]): void {
         this.initProp();
@@ -66,11 +66,10 @@ export default class UIGame extends UIView {
 
     }
 
-    onOpen(): void {
+    public onOpen(fromUI: number, ...args: any[]): void {
         this.addEvent();
-        this.createCards();
+        this.createGameOfLevel();
         GameModel.m_PosNodeArray = this.posNodeArray;
-        GameModel.indexArray = [-1, -1, -1, -1, -1, -1, -1];
     }
 
     addEvent() {
@@ -78,6 +77,7 @@ export default class UIGame extends UIView {
         Game.Event.addEventListener(GameConst.UI_CardGoIn, this.CardGoIn, this);
         Game.Event.addEventListener(GameConst.UI_SortCard, this.sortCard, this);
         Game.Event.addEventListener(GameConst.UI_CardRevoke, this.determineCover, this);
+        Game.Event.addEventListener(GameConst.UI_PassLevel, this.passLevel, this);
     }
 
     /**初始化道具数量 */
@@ -88,21 +88,61 @@ export default class UIGame extends UIView {
         GameModel.propMap.set(PropType.shuffle, 1);
     }
 
+    /**根据关卡设计当前游戏数据 */
+    createGameOfLevel() {
+        /**单独设计前3关 */
+        this.cards = new Set<Card>();
+        this.cards.clear();
+        GameModel.indexArray = [-1, -1, -1, -1, -1, -1, -1];
+        this.levelData = GameModel.levelJson.json;
+        let curLevelData: levelData[] = [];
+        if (GameModel.level == 1) {
+            curLevelData = [this.levelData.matrices[0]];
+        } else if (GameModel.level == 2) {
+            curLevelData = [this.levelData.matrices[0], this.levelData.matrices[0]];
+        } else if (GameModel.level == 3) {
+            curLevelData = [this.levelData.matrices[1], this.levelData.matrices[1]];
+        } else {
+            let layer = GameModel.level <= 8 ? GameModel.level : 8;
+            while (layer > 0) {
+                const index = CCTools.Random(0, this.levelData.matrices.length - 1);
+                curLevelData.push(this.levelData.matrices[index]);
+                layer--;
+            }
+        }
+
+        //根据curlevelData生成关卡
+        GameModel.centerDeck = [];
+        let cardNumber = 0;
+        GameModel.layer = curLevelData.length;
+        for (const level of curLevelData) {
+            cardNumber += level.filled_cells;
+            GameModel.centerDeck.push(level.data);
+        }
+
+        GameModel.CardNumber = cardNumber;
+        this.createCards();
+    }
+
+    /**过关 */
+    passLevel() {
+        this.createGameOfLevel();
+    }
+
     /**生成牌堆 */
     async createCards() {
 
         this.derk.setPosition(-(GameModel.col * GameModel.cardWight / 2), 450);
-        this.cards = new Set<Card>();
         this.randomCard();
         let cardId = 0;
         for (let z = 0; z < GameModel.layer; z++) {
             for (let y = 0; y < GameModel.row; y++) {
                 for (let x = 0; x < GameModel.col; x++) {
                     //判断当前列是否会偏移
-                    let isMoveX = CCTools.Random(0, 2);
+                    let isMoveX = CCTools.Random(0, 1);
                     let dirX = 0;
                     //判断当前行是否会偏移
-                    let isMoveY = CCTools.Random(0, 2);
+                    let isMoveY = CCTools.Random(0, 1);
                     let dirY = 0;
                     let isCreate = true;
                     const cs: CreateState = GameModel.centerDeck[z][y][x];
@@ -111,13 +151,13 @@ export default class UIGame extends UIView {
                             isCreate = false;
                             break;
                         case CreateState.create:
+                            dirX = CCTools.Random(0, 1) == 0 ? 1 : -1;
+                            dirY = CCTools.Random(0, 1) == 0 ? 1 : -1;
                             if (isMoveX) {
                                 //判断偏移方向
-                                dirX = CCTools.Random(0, 2) == 0 ? 1 : -1;
                             }
                             if (isMoveY) {
                                 //判断偏移方向
-                                dirY = CCTools.Random(0, 2) == 0 ? 1 : -1;
                             }
                             break;
                         case CreateState.onlycreate:
@@ -142,8 +182,18 @@ export default class UIGame extends UIView {
 
     /**随机出每种方块的数量 */
     randomCard() {
-        const c = Math.floor((GameModel.cardNumber / (this.cardArray.length * 3)));
-        let rest = GameModel.cardNumber - c * 3 * this.cardArray.length;
+        let allNumber = GameModel.CardNumber;
+        const c = Math.floor((GameModel.CardNumber / (this.cardArray.length * 3)));
+        if (GameModel.CardNumber <= this.cardArray.length * 3) {
+            //这里是方块总数没有15个的时候
+            for (let i = 0; i < this.cardArray.length; i++) {
+                if (allNumber <= 0) return;
+                this.cardArray[i] = 3;
+                allNumber -= 3;
+            }
+            return;
+        }
+        let rest = GameModel.CardNumber - c * 3 * this.cardArray.length;
         for (let i = 0; i < this.cardArray.length; i++) {
             this.cardArray[i] = c * 3;
         }
@@ -156,9 +206,15 @@ export default class UIGame extends UIView {
 
     /**获取一个可用的格子icon */
     getCardIcon(): number {
-        const type = CCTools.Random(0, this.cardArray.length - 1);
-        this.cardArray[type]--;
-        return type;
+        let canChanceType = [];
+        for (let i = 0; i < this.cardArray.length; i++) {
+            if (this.cardArray[i] > 0) {
+                canChanceType.push(i);
+            }
+        }
+        const type = CCTools.Random(0, canChanceType.length - 1);
+        this.cardArray[canChanceType[type]]--;
+        return canChanceType[type];
     }
 
     /**判断和其他方块的覆盖关系 */
@@ -189,12 +245,6 @@ export default class UIGame extends UIView {
             }
             GameModel.indexArray[i] = CardTS ? CardTS.cardType : -1;
         }
-        for (const iterator of GameModel.m_PosNodeArray) {
-            console.log(iterator.name + "节点排序后");
-        }
-        for (const iterator of GameModel.indexArray) {
-            console.log(iterator + "id排序后");
-        }
     }
 
     /**消除 */
@@ -216,6 +266,7 @@ export default class UIGame extends UIView {
                 for (let j = 0; j < clearArray.length; j++) {
                     GameModel.indexArray[j] = -1;
                     Game.ObjectPool.UnSpawn(clearArray[j]);
+                    GameModel.CardNumber--;
                 }
                 break;
             }
@@ -238,7 +289,7 @@ export default class UIGame extends UIView {
 
     /**点击撤销道具 */
     btnRevokeDown() {
-        if (GameModel.propMap.get(PropType.revoke) > 0) {
+        if (GameModel.propMap.get(PropType.revoke) > 0 && GameModel.preCard != null) {
             this.cards.add(GameModel.preCard);
             CCTools.changeParentAndKeepPosition(GameModel.preCard.node, this.derk);
             GameModel.preCard.revokeCard();
@@ -356,7 +407,13 @@ export default class UIGame extends UIView {
 
     /**重新开始游戏 */
     againGame() {
+        uiManager.close(this);
+        uiManager.open(UIID.UIGame,);
 
     }
 
-}
+
+    public onClose() {
+
+    }
+}   

@@ -29,3 +29,29 @@ export class GameConfig {
 
 
 }
+
+export class levelAllData {
+    number_of_matrices: number;
+    matrices: levelData[];
+    constructor(n: number, m: levelData[]) {
+        this.number_of_matrices = n;
+        this.matrices = m;
+    }
+}
+
+export class levelData {
+    rows: number;
+    columns: number;
+    filled_cells: number;
+    ones: number;
+    twos: number;
+    data: number[][];
+    constructor(rows: number, columns: number, filled_cells: number, ones: number, twos: number, data: number[][]) {
+        this.rows = rows;
+        this.columns = columns;
+        this.filled_cells = filled_cells;
+        this.ones = ones;
+        this.twos = twos;
+        this.data = data;
+    }
+}

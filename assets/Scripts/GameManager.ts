@@ -8,6 +8,7 @@
 import BundleManager from "../Common/Bundle/BundleManager";
 import { Game } from "../Common/Game";
 import CCTools from "../Common/Tools/CCTools";
+import JsonManager from "../Common/Tools/JsonManager";
 import { uiManager } from "../Common/UI/UIManager";
 import { UICF, UIID } from "./GameConfig";
 import GameModel from "./Model/GameModel";
@@ -25,6 +26,9 @@ export class GameManager extends cc.Component {
         let complete = async () => {
             this.initadaptation();
             Game.initialize();
+            await this.initJson();
+            await this.initMusic();
+            await this.initLevel();
             cc.game.addPersistRootNode(this.node);
             this.addEvent();
             uiManager.open(UIID.UIGameStart);
@@ -32,6 +36,28 @@ export class GameManager extends cc.Component {
         complete();
     }
 
+    /**初始化音量 */
+    async initMusic() {
+        GameModel.musicVolume = await Game.Storage.getWXItem("music", 1);
+        GameModel.soundVolume = await Game.Storage.getWXItem("sound", 1);
+        Game.Audio.setMusicVolume(GameModel.musicVolume);
+        Game.Audio.setSoundVolume(GameModel.soundVolume);
+        Game.Audio.playMusic("bg", "Audio");
+        console.log("本地数据音乐" + GameModel.musicVolume);
+    }
+
+    /**初始化json数据 */
+    async initJson() {
+        GameModel.levelJson = await JsonManager.Instance.jsonConvert("levels");
+    }
+
+    /**初始化关卡 */
+    async initLevel() {
+        const level = await Game.Storage.getWXItem("level", 1)
+        GameModel.level = level ? level : 1;
+        console.log("本地数据等级" + level);
+        console.log("gamemodel数据等级" + GameModel.level);
+    }
 
     //初始化适配
     initadaptation() {

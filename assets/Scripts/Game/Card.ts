@@ -66,21 +66,16 @@ export class Card extends IResultAble {
         CCTools.fixedClick(this.node, this.cardDown, this);
         CCTools.findChild(this.node, "icon").getComponent(cc.Sprite).spriteFrame = icon;
         this.mask = CCTools.findChild(this.node, "mask");
+        this.node.setSiblingIndex(this.cardId);
+        console.log(this.node.getSiblingIndex() + "方块在父节点下的索引");
     }
 
     /**设置覆盖关系(实际上只用设置其他被自己覆盖的卡牌，因为越后生成的层级越高) */
     setCoverCardState(target: Card) {
-
         if (Math.abs(this.node.x - target.node.x) < GameModel.cardWight && Math.abs(this.node.y - target.node.y) < GameModel.cardHeight) {
-            if (target.cardId < this.cardId) {
-                target.addAboveCard(this);
-                target.coverCard(true);
-                this.coverCardArray.add(target);;
-            } else {
-                this.addAboveCard(target);
-                this.coverCard(true);
-                target.coverCardArray.add(this);
-            }
+            target.addAboveCard(this);
+            target.coverCard(true);
+            this.coverCardArray.add(target);
         }
     }
 
@@ -106,6 +101,7 @@ export class Card extends IResultAble {
     }
     /**点击方块 */
     cardDown() {
+        console.log("点击方块的索引" + this.cardId);
         CCTools.controlClicks(this.node, false);
         this.isFly = true;
         GameModel.preCard = this;
